@@ -7,49 +7,9 @@ LJM supports [T-series](https://labjack.com/support/datasheets/t-series) LabJack
 See here for the full list of [T-series software options](https://labjack.com/support/datasheets/t-series/software-options).
 
 
-## Sudo
-
-Sudo may be required for the following commands.
-
-
 ## Prerequisites
 
-Linux is currently the only supported OS due to the `docker run` requirements needed to access the network and/or USB device layer. See [Run](#run) below.
-
-
-## Usage
-
-Example usage:
-
-```
-FROM labjack/ljm:1.2100
-WORKDIR /app
-ADD . /app
-CMD ["python3", "list_connections.py"]
-```
-
-See [example](example).
-
-
-## Project Life Cycle
-
-Build: `make`
-
-Clean: `make clean`
-
-Test: `make test`
- - Currently this just runs a [ListAll](https://labjack.com/support/software/api/ljm/function-reference/ljmlistall) command and displays the number of connections found.
-
-
-### Updating
-
- - `ubuntu_18/Dockerfile`: Replace the LJM installer and LJM-Python URLs
- - `ubuntu_18/Dockerfile`: Replace the LJM installer paths. The URL path may be different.
- - Update `VERSION`, which serves as the tag that will be published
- - `example/Dockerfile`: Update `FROM` line with the tag you just put in `VERSION`
- - `make clean`, `make`, and `make test`
- - `docker login`, as needed
- - Publish: `make publish`
+Linux is currently the only supported OS due to the `docker run` requirements for accessing the network and/or USB device layer. See [Run](#run) below.
 
 
 ## Run
@@ -82,3 +42,38 @@ docker run --rm -it \
     --network=host \
     labjack/ljm
 ```
+
+
+## Example Dockerfile
+
+Example usage:
+
+```
+FROM labjack/ljm:1.2100
+WORKDIR /app
+ADD . /app # Adds list_connections.py
+CMD ["python3", "list_connections.py"]
+```
+
+See [example](example).
+
+
+## Project Life Cycle
+
+Build: `make`
+
+Clean: `make clean`
+
+Test: `make test`
+ - Currently this just runs a [ListAll](https://labjack.com/support/software/api/ljm/function-reference/ljmlistall) command and displays the number of connections found.
+
+
+### Publishing a new version
+
+ - `ubuntu_18/Dockerfile`: Replace the LJM installer and LJM-Python URLs
+ - `ubuntu_18/Dockerfile`: Replace the LJM installer paths. The URL path may be different.
+ - Update `VERSION`, which serves as the tag that will be published
+ - `example/Dockerfile`: Update `FROM` line with the tag you just put in `VERSION`
+ - `make clean`, `make`, and `make test`
+ - `docker login`, as needed
+ - Publish: `make publish`
