@@ -17,6 +17,20 @@ Sudo may be required for the following commands.
 Linux is currently the only supported OS due to the `docker run` requirements needed to access the network and/or USB device layer. See [Run](#run) below.
 
 
+## Usage
+
+Example usage:
+
+```
+FROM labjack/ljm:1.2100
+WORKDIR /app
+ADD . /app
+CMD ["python3", "list_connections.py"]
+```
+
+See [example](example).
+
+
 ## Project Life Cycle
 
 Build: `make`
