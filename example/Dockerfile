@@ -1,4 +1,4 @@
-FROM labjack/ljm:1.2000
+FROM labjack/ljm:1.2100
 
 WORKDIR /app
 

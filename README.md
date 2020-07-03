@@ -29,9 +29,10 @@ Test: `make test`
 
 ### Updating
 
- - Replace the URLs in `ubuntu_18/Dockerfile`
+ - `ubuntu_18/Dockerfile`: Replace the LJM installer and LJM-Python URLs
+ - `ubuntu_18/Dockerfile`: Replace the LJM installer paths. The URL path may be different.
  - Update `VERSION`, which serves as the tag that will be published
- - Update `FROM` line with the tag you just put in `VERSION`
+ - `example/Dockerfile`: Update `FROM` line with the tag you just put in `VERSION`
  - `make clean`, `make`, and `make test`
  - `docker login`, as needed
  - Publish: `make publish`
