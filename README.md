@@ -6,6 +6,8 @@ LJM supports [T-series](https://labjack.com/support/datasheets/t-series) LabJack
 
 See here for the full list of [T-series software options](https://labjack.com/support/datasheets/t-series/software-options).
 
+**Note:** LJM Docker does not support Kipling.
+
 
 ## Prerequisites
 
@@ -57,6 +59,25 @@ CMD ["python3", "list_connections.py"]
 
 See [example](example).
 
+
+## Create your own Docker image with LJM
+If you need to create your own docker image for another OS, or Architecture you can include LJM easily in your dockerfile. All you will need is to download any LJM installer for Linux from our website, or [files.labjack.com](https://files.labjack.com/installers/LJM/Linux/).
+
+Then to install LJM in your image, add to your Dockerfile:
+```
+ADD https://files.labjack.com/installers/LJM/Linux/x64/release/LabJack-LJM_2024-06-10.zip
+RUN unzip LabJack-LJM_2024-06-10.zip
+RUN ./labjack_ljm_installer.run -- --without-kipling --no-restart-device-rules
+```
+* Commands will need to be updated to match your Installer name/date.
+* The ***--without-kipling*** and ***--no-restart-device-rules*** flags are necessary.
+
+See also the Dockerfile from this repo for another example:
+```
+RUN wget https://files.labjack.com/installers/LJM/Linux/x64/minimal/beta/labjack_ljm_minimal_2020_03_30_x86_64_beta.tar.gz
+RUN tar zxf ./labjack_ljm_minimal_2020_03_30_x86_64_beta.tar.gz
+RUN ./labjack_ljm_minimal_2020_03_30_x86_64/labjack_ljm_installer.run -- --no-restart-device-rules
+```
 
 ## Project Life Cycle
 
